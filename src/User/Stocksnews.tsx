@@ -109,7 +109,7 @@ export const handleSaveCheck = (currentdocument:any, stocknews:any) => {
 
   }
 
-
+//fdgdfgdfgdfgdfg
 
 
   if (validatemode == 'save') {
