@@ -1,0 +1,89 @@
+.item {
+  float: right;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.btn1 {
+  display: block;
+  border: 0px;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  line-height: 1;
+  outline: none;
+  background-color: var(--button_itss-primary);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  letter-spacing: 2px;
+  width: 100%;
+}
+
+.btn1:hover,
+.btn1:focus {
+  background-color: var(--button_itss-primaryFocus);
+}
+
+.btn1:active {
+  background-color: var(--button_itss-primaryActive);
+}
+
+.btn_itss-deault {
+  display: block;
+  border: 0px;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  line-height: 1;
+  outline: none;
+  background-color: var(--default_itss-color);
+  color: var(--dark_itss-color);
+  cursor: pointer;
+  transition: all 0.3s linear;
+  letter-spacing: 2px;
+  width: 100%;
+}
+
+.btn_itss-deault:hover,
+.btn_itss-default:focus {
+  background-color: var(--defaultFocus_itss-color);
+}
+.btn_itss-deault:active {
+  background-color: var(--defaultActive_itss-color);
+}
+
+.btn_itss-large {
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+.btn_itss-small {
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+.btn_itss-outline {
+  display: block;
+  border: 1px solid var(--field_itss-color);
+  font-weight: 500;
+  border-radius: 5px;
+  line-height: 1;
+  outline: none;
+  background-color: white;
+  color: var(--field_itss-color);
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.btn_itss-outline:hover,
+.btn_itss-outline:focus {
+  background: #005c99;
+  border: 3px solid #005c99;
+  color: #fff;
+}
+
+.btn_itss-outline:active {
+  background-color: #003659;
+  color: #fff;
+}

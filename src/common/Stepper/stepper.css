@@ -1,0 +1,99 @@
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+  }
+.stepper-container_itss{
+    width: 100%;
+    background: #fff;
+    padding: 0;
+    min-height: calc(100vh - 150px);
+    position: relative;
+    overflow: hidden;
+}
+
+.stepper-container_itss h3{
+    /* text-align: center;
+    margin-bottom: 1rem; */
+    color: #777;
+}
+
+.stepper-container_itss .step-form{
+    width: 100%;
+    position:absolute;
+    top:100px;
+    left:30px;
+    transition: 0.5s;
+}
+
+.stepper-container_itss .step-form input{
+    width: 80%;
+    padding: 10px 5px;
+    margin: 5px 0;
+    border: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+.stepper-container_itss .btn_itss-box {
+    width: 100%;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.stepper-container_itss button{
+    width: 150px;
+    height: 35px;
+    margin: 0 10px;
+    background: linear-gradient(to right, var(--main_itss-color), var(--main_itss-color));
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+}
+#form2{
+    left:100%;
+}
+#form3{
+    left:100%;
+}
+.step-row{
+    width: 100%;
+    height: 40px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    border-bottom:  1px #777 solid;
+    position: relative;
+}
+.step-row .step-col{
+    width: calc((100vw - 3rem) / 3 );
+    text-align: center;
+    color: #333;
+    position: relative;
+}
+
+#progress{
+    position:absolute;
+    height: 100%;
+    width: calc((100%) / 3 );
+    transition: 1s;
+    background: linear-gradient(to right, var(--main_itss-color), var(--main_itss-color));;
+}
+
+#progress::after{
+    content:"";
+    height: 0;
+    width: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    position: absolute;
+    right: -20px;
+    top:0;
+    border-left: 20px solid var(--main_itss-color);
+}

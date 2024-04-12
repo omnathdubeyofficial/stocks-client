@@ -1,0 +1,172 @@
+.alert_itss{
+    padding: 20px 40px;
+    min-width: 420px;
+    position: fixed;
+    right: 0px;
+    bottom: 55px;
+    overflow: hidden;
+    border-radius: 4px;
+    z-index: 300;
+}
+
+.alert_itss .fa-exclamation-circle,.alert .fa-check-circle{
+    position: absolute;
+    left: 20px;
+    top:50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+}
+.alert_itss .msg{
+    padding: 0 20px;
+    font-size: 18px;
+}
+
+.alert_itss .close-btn{
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);    
+    cursor: pointer;
+    padding: 20px 18px;
+}
+
+.close-btn .fa-times{
+    font-size: 22px;
+    line-height: 40px;
+}
+.alert_itss.warning{
+    background: #ffdb9b;    
+    border-left: 8px solid #ffa502;
+}
+
+.alert.warning .fa-exclamation-circle{
+    color: #ce8500;
+}
+
+.alert_itss.warning .msg{
+    color: #ce5800;
+} 
+
+.alert_itss.warning .close-btn{
+    background: #ffd080;
+}
+
+
+.warning .close-btn:hover {
+    background: #ffc766;
+}
+
+.warning .close-btn .fa-times{
+    color:#ce8500;
+}
+
+
+
+.alert_itss.show{
+    animation: show_slide 1s ease forwards;
+}
+
+/* @keyframes show_slide {
+    0%{
+        transform: translateX(100%);
+    }
+
+    40%{
+        transform: translateX(-10%);
+    }
+    80%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-10%);
+    }
+
+} */
+
+.alert_itss.hide{
+    display:none;
+}
+
+.alert_itss.error{
+    background: #f5b6b6;
+    border-left: 8px solid #8B0000;
+}
+
+.alert_itss.error .fa-exclamation-circle{
+    color: #8B0000;
+}
+
+.alert_itss.error .msg{
+    color: #8B0000;
+} 
+
+.alert_itss.error .close-btn{ 
+    background: #ec8b8b;    
+}
+
+
+.error .close-btn:hover {
+    background: #d86969;
+}
+
+.error .close-btn .fa-times{
+    color:#8B0000;
+}
+
+
+.alert_itss.success{
+    background: #c2f5c2;
+    border-left: 8px solid #228B22;
+}
+
+.alert_itss.success .fa-check-circle{
+    color: #228B22;
+}
+
+.alert_itss.success .msg{
+    color: #228B22;
+} 
+
+.alert_itss.success .close-btn{
+   background: #84e784;
+}
+
+
+.success .close-btn:hover {
+    background: #5cdf5c;
+}
+
+.success .close-btn .fa-times{
+    color:#228B22;
+}
+
+@media only screen and (max-width: 560px) {
+    .alert_itss{
+        padding: 20px 40px;
+        min-width: 320px;
+        position: fixed;
+        right: 0px;
+        bottom: 55px;
+        overflow: hidden;
+        border-radius: 4px;
+        z-index: 300;
+    }
+
+    .alert_itss .msg{
+        padding: 0 15px;
+        font-size: 14px;
+    }
+
+    .close-btn .fa-times{
+        font-size: 18px;
+        line-height: 40px;
+    }
+
+    .alert_itss .fa-exclamation-circle,.alert_itss .fa-check-circle{
+        position: absolute;
+        left: 20px;
+        top:50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+    }
+}

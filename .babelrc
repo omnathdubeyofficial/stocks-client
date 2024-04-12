@@ -1,0 +1,30 @@
+{
+    "presets": [
+      "@babel/preset-env",
+      [
+        "@babel/preset-react",
+        {
+          "runtime": "automatic",
+          "useBuiltIns": "usage"
+        }
+      ],
+      "@babel/preset-typescript"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
+      [
+        "@babel/transform-runtime",
+        {
+          "regenerator": true
+        }
+      ],
+      [
+        "import", 
+          { 
+            "libraryName": "@material-ui/icons", 
+            "libraryDirectory": "",
+            "camel2DashComponentName": false
+          }, "@material-ui/icons"
+      ]
+    ]
+  }

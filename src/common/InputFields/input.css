@@ -1,0 +1,89 @@
+.input_itss-field,
+.error-input-field {
+  width: 100%;
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+}
+
+
+.input_itss-field input,
+.error-input-field input {
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
+  border: none;
+  outline: none;
+  color: var(--secondary_itss-color);
+  background: transparent;
+  padding-left: 5px;
+  font-size: 1rem;
+}
+
+.input_itss-field label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-bottom: 1px solid var(--secondary_itss-color);
+  color: #a3a3a3;
+}
+.error-input-field label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-bottom: 1px solid var(--error_itss-color);
+}
+
+.field-error_itss {
+  color: var(--error_itss-color);
+  font-size: 12px;
+}
+
+.round-field-error_itss {
+  color: var(--error_itss-color);
+  font-size: 12px;
+  padding-left: 1rem;
+}
+
+.input_itss-field label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2;
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid var(--field_itss-color);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.content-name {
+  position: absolute;
+  bottom: 5px;
+  left: 0px;
+  transition: all 0.3s ease;
+}
+
+.input_itss-field input:focus + .label_itss-name .content-name,
+.input_itss-field input:valid + .label_itss-name .content-name {
+  transform: translateY(-100%);
+  font-size: 12px;
+  color: var(--field_itss-color);
+}
+.error-input-field input:focus + .label_itss-name .content-name,
+.error-input-field input:valid + .label_itss-name .content-name {
+  transform: translateY(-100%);
+  font-size: 12px;
+  color: var(--error_itss-color);
+}
+
+.input_itss-field input:focus + .label_itss-name::after,
+.input_itss-field input:valid + .label_itss-name::after {
+  transform: translate(0%);
+}

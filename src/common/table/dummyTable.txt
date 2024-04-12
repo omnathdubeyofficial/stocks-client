@@ -1,0 +1,27 @@
+<Table 
+  data={tabledata()}
+  defaultNoOfRows={10}
+  actionColWidth={150}
+  actions={[{
+    action:(id:any)=>{alert(id)},
+    icon:"fas fa-edit",
+    text:"Edit",
+    className:"table-button submit"
+  },{
+    action:(id:any)=>{alert(id)},
+    icon:"fas fa-trash-alt",
+    text:"delete",
+    className:"table-button danger"
+  },{
+    action:(id:any)=>{alert(id)},
+    icon:"fas fa-trash-alt",
+    text:"delete",
+    className:"table-button danger"
+  }]}
+>
+
+ <Column fieldname="projectTitle" columnname="Project Title" ></Column>
+
+ <Column fieldname="status" columnname="Status" ></Column>
+ <Column fieldname="department" columnname="Department" ></Column>
+</Table>

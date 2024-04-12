@@ -1,0 +1,12 @@
+export const AUTH_USER = 'AUTH_USER';
+export const UNAUTH_USER = 'UNAUTH_USER';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const FETCH_MESSAGE = 'FETCH_MESSAGE';
+export const CREATE_USER='CREATE_USER';
+export const FETCH_USER='FETCH_USER';
+export const SET_USER='SET_USER';
+export const FETCH_USERS='FETCH_USERS';
+export const UPDATE_USER='UPDATE_USER';
+export const FORM_ERROR='FORM_ERROR';
+export const CLEAR_FORM_ERROR='CLEAR_FORM_ERROR';
+export const AUTH_PENDING='AUTH_PENDING';
