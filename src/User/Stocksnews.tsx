@@ -36,9 +36,7 @@ const handleSave = async (currentdocument: any) => {
       t_id:nvl(currentdocument.t_id, '')
     }
     result = await execGql('mutation', saveUser, userForSave)
-
   }
-
 
   catch (err:any) {
     errors = err.errorsGql;
