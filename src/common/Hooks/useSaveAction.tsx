@@ -101,7 +101,7 @@ function useSaveAction( handleSave:any,handleSaveCheck:any,doctype:String,doctyp
               docstatus.snackbartext = doctypetext + ' Saved';
               setDocumentstatus(docstatus);
             }
-            resetFocus();
+             //resetFocus();
             break;
         }
       }
