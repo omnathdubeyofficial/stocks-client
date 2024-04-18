@@ -1,15 +1,16 @@
+//Hello
 import './styles.css'
-import {Provider} from 'react-redux'
-import {ConfigureStore} from './ITFs/Redux/configureStore'
+import { Provider } from 'react-redux'
+import { ConfigureStore } from './ITFs/Redux/configureStore'
 import FormJson from './formElement.json'
 import { PersistGate } from 'redux-persist/integration/react'
 import FormContextProvider from './FormContext'
 import FormComponent from './components/Elements/FormComponent'
 import Dashboard from './ITFs/Dashboard/Dashboard'
 import Login from './ITFs/Login/Login'
-import {AuthorisationswitchComponent} from './ITFs/Login/AuthorisationswitchComponent'
+import { AuthorisationswitchComponent } from './ITFs/Login/AuthorisationswitchComponent'
 import React from 'react'
-const {persistor,store} = ConfigureStore();
+const { persistor, store } = ConfigureStore();
 
 /*
   */
@@ -28,13 +29,13 @@ export const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-      <React.StrictMode>
- <AuthorisationswitchComponent/>
-</React.StrictMode>
- {/* <Login/> */}
-    </PersistGate>
+        <React.StrictMode>
+          <AuthorisationswitchComponent />
+        </React.StrictMode>
+        {/* <Login/> */}
+      </PersistGate>
     </Provider>
-//    <Login/>
+    //    <Login/>
     //     <FormContextProvider>
 
     //         {/* <h1>
