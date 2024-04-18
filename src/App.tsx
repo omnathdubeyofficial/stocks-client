@@ -15,7 +15,6 @@ const { persistor, store } = ConfigureStore();
 /*
   */
 
-
 export const App = () => {
   const handleSubmit = (obj: any) => {
     console.log(obj)
