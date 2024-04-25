@@ -18,6 +18,7 @@ query($applicationid:String!,$client:String!,$lang:String!,$z_id:String)
     companynews
     date
     isread
+    recocompany
     cdate
     ctime
     cuser
