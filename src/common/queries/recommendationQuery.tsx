@@ -28,6 +28,9 @@ query($applicationid:String!,$client:String!,$lang:String!,$z_id:String)
     target7
     target8
     target9
+    comment1
+    comment2
+    comment3
     weightage
     timeframe
     cdate

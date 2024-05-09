@@ -1,0 +1,109 @@
+.grid .row-area{
+  min-height: 300px;
+  width: 100%;
+}
+.grid .row-area .col-12{
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+
+.textarea-field,
+.error-textarea-field {
+width: 100%;
+position: relative;
+/* height: 50px; */
+overflow: hidden;
+}
+
+
+.textarea-field textarea,
+.error-textarea-field textarea {
+width: 100%;
+height: 100%;
+padding-top: 20px;
+border: none;
+outline: none;
+color: var(--secondary-color);
+background: transparent;
+padding-left: 5px;
+font-size: 1rem;
+}
+
+.textarea-field label {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+border: 1px solid var(--secondary-color);
+color: #a3a3a3;
+}
+.error-textarea-field label {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+border-bottom: 1px solid var(--error-color);
+}
+
+.field-error {
+color: var(--error-color);
+font-size: 12px;
+}
+
+.round-field-error {
+color: var(--error-color);
+font-size: 12px;
+padding-left: 1rem;
+}
+
+.textarea-field label::after {
+content: '';
+position: absolute;
+left: 0;
+top: 2;
+height: 100%;
+width: 100%;
+border: 1px solid var(--field-color);
+/* transform: translateX(-100%);
+transition: transform 0.3s ease; */
+}
+
+/* .textarea-field .content-name {
+position: absolute;
+bottom: 5px;
+left: 0px;
+transition: all 0.3s ease;
+} */
+
+.textarea-field textarea:focus + .label-name .content-name,
+.textarea-field textarea:valid + .label-name .content-name {
+transform: translateY(-100%);
+font-size: 14px;
+color: var(--field-color);
+}
+.error-textarea-field textarea:focus + .label-name .content-name,
+.error-textarea-field textarea:valid + .label-name .content-name {
+transform: translateY(-100%);
+font-size: 14px;
+color: var(--error-color);
+}
+
+.textarea-field textarea:focus + .label-name::after,
+.textarea-field textarea:valid + .label-name::after {
+transform: translate(0%);
+}
+
+.textarea-label-container{
+line-height: 1.5em;
+}
+
+.textarea-label-container .label-header{
+font-size: 18px;
+font-weight: 500;
+}

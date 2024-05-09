@@ -29,7 +29,9 @@ export const handleSave = async (currentdocument: any) => {
         target7: nvl(currentdocument.target7, ''),
         target8: nvl(currentdocument.target8, ''),
         target9: nvl(currentdocument.target9, ''),
-        
+        comment1: nvl(currentdocument.comment1, ''),
+        comment2: nvl(currentdocument.comment2, ''),
+        comment3: nvl(currentdocument.comment3, ''),
         weightage: nvl(currentdocument.weightage, ''),
         timeframe: nvl(currentdocument.timeframe, ''),
         z_id:nvl(currentdocument.z_id, ''),

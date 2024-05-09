@@ -19,6 +19,9 @@ export default  gql`
     $target7:String,
     $target8:String,
     $target9:String,
+    $comment1:String,
+    $comment2:String,
+    $comment3:String,
     $weightage:String,
     $timeframe:String,
     $reffiles:[FileType]
@@ -44,6 +47,9 @@ export default  gql`
     target7:$target7,
     target8:$target8,
     target9:$target9,
+    comment1:$comment1,
+    comment2:$comment2,
+    comment3:$comment3,
     weightage:$weightage,
     timeframe:$timeframe,
     reffiles:$reffiles
@@ -68,6 +74,9 @@ export default  gql`
     target7
     target8
     target9
+    comment1
+    comment2
+    comment3
     weightage
     timeframe
     reffiles{z_id,

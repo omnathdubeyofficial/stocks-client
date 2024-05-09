@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import DatePicker from '../../common/DatePicker'
 import { FlatInput } from '../../common/InputFields/Input'
+import { M_Textarea } from '../../common/InputFields/textarea'
+
 import { SelectInput } from '../../common/InputFields/Select'
 import { SearchSelectInput } from '../../common/InputFields/SearchSelect'
 import * as doctypes from '../../common/Doctypes';
@@ -71,7 +73,7 @@ console.log('nvl(target1, )',runCheck(nvl(target1, ''), [requiredCheck]))
     }
     validatemode == 'touch' 
   }
-  if (validatemode == 'touch' && touched != null) {
+  if (validatemode == 'touch' && (touched != null || touched!=undefined)) {
     currentdocument.errorsAll = {
       name: checkTouched(nvl(touched.name, false), name_check),
       recodate: checkTouched(nvl(touched.recodate, false), recodate_check),
@@ -112,6 +114,84 @@ export const RecommendationComponent = (props: any) => {
   }
   const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteGQL)
   const [stocklist, setstocklist] = useState([])
+
+  const currentdocumentRef = useRef(null);
+  const getRecommendationsObjects = () => {
+  let captureddata:any = {}
+
+    //const lines = currentdocument?.rectext.split('\n');
+    const lines = currentdocument?.rectext.split('\n').map(line => line.trim()).filter(line => line !== '');
+  const index = lines.findIndex(line => /^\d/.test(line)); // Find the index of the line starting with a digit
+    lines.forEach(line => {
+      line=line.toLowerCase()
+      if (line.startsWith('timeframe')) {
+        // Parse Timeframe and update currentdocument
+        const timeframe = line.split(' ')[1];
+      //  const timeframeValue = timeframeParts.slice(1).join(' '); // Join all parts after 'Timeframe' keyword
+        captureddata['timeframe']=timeframe
+
+        //currentdocumentRef.current = { ...currentdocumentRef.current, timeframe: timeframeValue };
+      } else if (line.startsWith('weightage')) {
+        // Parse Weightage and update currentdocument
+        const weightage = line.split(' ')[1];
+        captureddata['weightage']=weightage
+        //currentdocumentRef.current = { ...currentdocumentRef.current, weightage };
+      }
+       else if (line.startsWith('buy')) {
+        // Parse BUY fields
+        const parts = line.split(' ');
+        const cmpIndex = parts.indexOf('cmp');
+        const cmp = parts[cmpIndex + 1];
+        const dipsIndex = parts.indexOf('dips');
+        const addIndex = parts.indexOf('add');
+        const addUpToIndex = parts.indexOf('add');
+        const stopLossIndex = parts.indexOf('stop');
+        let stopLoss;
+        if (stopLossIndex !== -1 && stopLossIndex + 1 < parts.length) {
+          if (parts[stopLossIndex + 1] === 'below' || parts[stopLossIndex + 1] === 'beliw') {
+            // If "below" or "beliw" follows "stop", take the number after it
+            stopLoss = parts[stopLossIndex + 2];
+          } else {
+            // Otherwise, take the number after "stop"
+            stopLoss = parts[stopLossIndex + 1];
+          }
+        }
+        
+        const nameIndex = parts.indexOf('buy') + 1;
+        const name = parts.slice(nameIndex, cmpIndex).join(' '); // Join all words between 'buy' and 'cmp'
+        const target1Index = parts.indexOf('target');
+        const target1 = parts[target1Index + 1];
+        const target2 = parts[target1Index + 3];
+        const target3 = parts[target1Index + 5];
+        const target4 = parts[target1Index + 7];
+        const target5 = parts[target1Index + 9]; 
+        const target6 = parts[target1Index + 11]; 
+        const target7 = parts[target1Index + 13];
+
+        captureddata = {
+          ...captureddata,
+          ...currentdocument,
+          cmp,
+         name,
+         recodate: index !== -1 ? lines[index] : undefined, // Set recodate if found, otherwise undefined
+
+       addupto: dipsIndex !== -1 ? parts[dipsIndex + 2] : (addIndex !== -1 ? parts[addUpToIndex + 2] : undefined),
+       sl: stopLoss,
+          target1,
+          target2,
+          target3,
+          target4,
+          target5,
+          target6,
+          target7,
+          // Add other fields if needed
+        };
+        
+      }
+    });
+    modifydocument({...captureddata})
+  };
+  
 
   useEffect(() => {
     let z_id = new URLSearchParams(props.location.search).get("z_id")
@@ -156,9 +236,11 @@ export const RecommendationComponent = (props: any) => {
 
   {
   
-    let currentdocument1=handleSaveCheck(currentdocument);
-    console.log ("**************", currentdocument )
-
+    let currentdocument1={...currentdocument};
+    console.log ("", currentdocument )
+    const handleAddButtonClick = () => {
+      getRecommendationsObjects();
+    };
     return (
       <>
         <Loader display={loaderDisplay} />
@@ -166,6 +248,33 @@ export const RecommendationComponent = (props: any) => {
           <div className="grid_itss">
      
             <div className="row_itss">
+
+            <M_Textarea  wd="12" label="" name="rectext" currdoc={currentdocument1} section={'rectext'} modifydoc={modifydocument}/>
+
+
+       {/*  <textarea
+        className="textarea_itss"
+        rows={6}  
+        value={inputText}
+        onChange={(e) => setInputText(e.target.value)} 
+        style={{ width: '100%', padding: '5px' , marginBottom: '22px' }} 
+      />*/}
+      
+<button 
+  onClick={handleAddButtonClick} 
+  style={{ 
+    backgroundColor: 'skyblue', 
+    color: 'white', 
+    padding: '10px 30px', 
+    border: 'none', 
+    borderRadius: '5px', 
+  }} 
+ // disabled={!currentdocument.rectext} // Disable the button when there is no text
+>
+  Add
+</button>
+</div>
+<div className="row_itss">
               <SearchSelectInput inpref={compinp} wd="3" label="" options={M_stocklist} name="name" currdoc={currentdocument1} section={'name'} modifydoc={modifydocument} refresh={getStockcmp} />
               <DatePicker wd="3" label="Recommendation Date" name="recodate" currdoc={currentdocument1} section={'recodate'} modifydoc={modifydocument} format="yyyymmdd" />
               <FlatInput wd="3" label="Current market price" name="cmp" currdoc={currentdocument1} section={'cmp'} modifydoc={modifydocument} />
@@ -178,7 +287,9 @@ export const RecommendationComponent = (props: any) => {
             </div>
             <div className="row_itss">
               <FlatInput wd="3" label="Weightage" name="weightage" currdoc={currentdocument1} section={'weightage'} modifydoc={modifydocument} />
-              <SelectInput wd="3" label="Time Frame" options={timeframeoptions} name="timeframe" currdoc={currentdocument1} section={'timeframe'} modifydoc={modifydocument} />
+              <FlatInput wd="3" label="Time Frame" name="timeframe" currdoc={currentdocument1} section={'timeframe'} modifydoc={modifydocument} />
+
+             {/* <SelectInput wd="3" label="Time Frame" options={timeframeoptions} name="timeframe" currdoc={currentdocument1} section={'timeframe'} modifydoc={modifydocument} />*/}
               <div className={"col_itss-3"}></div>
               <div className={"col_itss-3"}></div>
             </div>
@@ -198,6 +309,12 @@ export const RecommendationComponent = (props: any) => {
               <FlatInput wd="3" label="Target 7" name="target7" currdoc={currentdocument1} section={'target7'} modifydoc={modifydocument} />
               <FlatInput wd="3" label="Target 8" name="target8" currdoc={currentdocument1} section={'target8'} modifydoc={modifydocument} />
               <FlatInput wd="3" label="Target 9" name="target9" currdoc={currentdocument1} section={'target9'} modifydoc={modifydocument} />
+              <div className={"col_itss-3"}></div>
+            </div>
+            <div className="row_itss">
+              <FlatInput wd="3" label="Comment 1" name="comment1" currdoc={currentdocument1} section={'comment1'} modifydoc={modifydocument} />
+              <FlatInput wd="3" label="Comment 2" name="comment2" currdoc={currentdocument1} section={'comment2'} modifydoc={modifydocument} />
+              <FlatInput wd="3" label="Comment 3" name="comment3" currdoc={currentdocument1} section={'comment3'} modifydoc={modifydocument} />
               <div className={"col_itss-3"}></div>
             </div>
  
@@ -249,4 +366,3 @@ const mapStateToProps = (state: any) => {
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RecommendationComponent));
-
