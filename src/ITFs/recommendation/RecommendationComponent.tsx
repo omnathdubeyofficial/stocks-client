@@ -159,14 +159,29 @@ export const RecommendationComponent = (props: any) => {
         
         const nameIndex = parts.indexOf('buy') + 1;
         const name = parts.slice(nameIndex, cmpIndex).join(' '); // Join all words between 'buy' and 'cmp'
-        const target1Index = parts.indexOf('target');
-        const target1 = parts[target1Index + 1];
-        const target2 = parts[target1Index + 3];
-        const target3 = parts[target1Index + 5];
-        const target4 = parts[target1Index + 7];
-        const target5 = parts[target1Index + 9]; 
-        const target6 = parts[target1Index + 11]; 
-        const target7 = parts[target1Index + 13];
+        const actionLine = parts.slice(cmpIndex + 1).join(' '); // Join all words after 'cmp'
+
+       // Extracting targets
+       const targetsStartIndex = actionLine.indexOf('target') !== -1 ? actionLine.indexOf('target') : actionLine.indexOf('tgt');
+       
+       let targets;
+       let T1, T2, T3, T4, T5, T6, T7, T8, T9;
+       if (targetsStartIndex !== -1) {
+        targets = actionLine.slice(targetsStartIndex + (actionLine.includes('tgt') ? 3 : 6)).split('/').map(item => item.trim());
+         
+         T1 = targets[0];
+         T2 = targets[1];
+         T3 = targets[2];
+         T4 = targets[3];
+         T5 = targets[4];
+         T6 = targets[5];
+         T7 = targets[6];
+         T8 = targets[7];
+         T9 = targets[8];
+       } else {
+         // Handle if no targets are found
+         T1 = T2 = T3 = T4 = T5 = T6 = T7 = T8 = T9 = undefined;
+       }
 
         captureddata = {
           ...captureddata,
@@ -177,14 +192,15 @@ export const RecommendationComponent = (props: any) => {
 
        addupto: dipsIndex !== -1 ? parts[dipsIndex + 2] : (addIndex !== -1 ? parts[addUpToIndex + 2] : undefined),
        sl: stopLoss,
-          target1,
-          target2,
-          target3,
-          target4,
-          target5,
-          target6,
-          target7,
-          // Add other fields if needed
+       target1: T1,
+       target2: T2,
+       target3: T3,
+       target4: T4,
+       target5: T5,
+       target6: T6,
+       target7: T7,
+       target8: T8,
+       target9: T9,
         };
         
       }
