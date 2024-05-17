@@ -32,7 +32,7 @@ export const getSummaryMutation= gql`mutation getSummary
             onlinetotal
             cashtotal
             },
-            total
+            totalz
             {
                 stall
             vegsteamedplates

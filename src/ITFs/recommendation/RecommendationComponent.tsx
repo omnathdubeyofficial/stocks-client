@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useRef } from 'react'
 import DatePicker from '../../common/DatePicker'
 import { FlatInput } from '../../common/InputFields/Input'
 import { M_Textarea } from '../../common/InputFields/textarea'
-
+import  getGraphql  from '../../common/queries/recommendationnewQuery'
 import { SelectInput } from '../../common/InputFields/Select'
 import { SearchSelectInput } from '../../common/InputFields/SearchSelect'
 import * as doctypes from '../../common/Doctypes';
@@ -26,6 +26,8 @@ import deleteGQL from '../../common/mutations/DeleteRecommendation'
 import { FileuploadComponent } from '../../common/FileuploadComponent'
 import { OnlineFileuploadComponent } from '../../common/OnlineFileuploadComponent'
 import shortid from 'shortid'
+import { execGql, execGql_xx } from '../../common/gqlclientconfig';
+
 
 const newDocument = (doctype: String, doctypetext: String) => {
   return {
@@ -116,97 +118,26 @@ export const RecommendationComponent = (props: any) => {
   const [stocklist, setstocklist] = useState([])
 
   const currentdocumentRef = useRef(null);
-  const getRecommendationsObjects = () => {
-  let captureddata:any = {}
 
-    //const lines = currentdocument?.rectext.split('\n');
-    const lines = currentdocument?.rectext.split('\n').map(line => line.trim()).filter(line => line !== '');
-  const index = lines.findIndex(line => /^\d/.test(line)); // Find the index of the line starting with a digit
-    lines.forEach(line => {
-      line=line.toLowerCase()
-      if (line.startsWith('timeframe')) {
-        // Parse Timeframe and update currentdocument
-        const timeframe = line.split(' ')[1];
-      //  const timeframeValue = timeframeParts.slice(1).join(' '); // Join all parts after 'Timeframe' keyword
-        captureddata['timeframe']=timeframe
-
-        //currentdocumentRef.current = { ...currentdocumentRef.current, timeframe: timeframeValue };
-      } else if (line.startsWith('weightage')) {
-        // Parse Weightage and update currentdocument
-        const weightage = line.split(' ')[1];
-        captureddata['weightage']=weightage
-        //currentdocumentRef.current = { ...currentdocumentRef.current, weightage };
+  async function getRecommendationsObjects(values: any) {
+    
+    var result: any = '', errorMessage = '', errors = new Array();
+    try {
+      result = await execGql('query', getGraphql, values);
+      if (!result) {
+        console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' });
+        return [];
+      } else {
+        console.log('GraphQL query successful. Result:', result.data.getRecommendations);
+        return result.data.getRecommendations;
       }
-       else if (line.startsWith('buy')) {
-        // Parse BUY fields
-        const parts = line.split(' ');
-        const cmpIndex = parts.indexOf('cmp');
-        const cmp = parts[cmpIndex + 1];
-        const dipsIndex = parts.indexOf('dips');
-        const addIndex = parts.indexOf('add');
-        const addUpToIndex = parts.indexOf('add');
-        const stopLossIndex = parts.indexOf('stop');
-        let stopLoss;
-        if (stopLossIndex !== -1 && stopLossIndex + 1 < parts.length) {
-          if (parts[stopLossIndex + 1] === 'below' || parts[stopLossIndex + 1] === 'beliw') {
-            // If "below" or "beliw" follows "stop", take the number after it
-            stopLoss = parts[stopLossIndex + 2];
-          } else {
-            // Otherwise, take the number after "stop"
-            stopLoss = parts[stopLossIndex + 1];
-          }
-        }
-        
-        const nameIndex = parts.indexOf('buy') + 1;
-        const name = parts.slice(nameIndex, cmpIndex).join(' '); // Join all words between 'buy' and 'cmp'
-        const actionLine = parts.slice(cmpIndex + 1).join(' '); // Join all words after 'cmp'
-
-       // Extracting targets
-       const targetsStartIndex = actionLine.indexOf('target') !== -1 ? actionLine.indexOf('target') : actionLine.indexOf('tgt');
-       
-       let targets;
-       let T1, T2, T3, T4, T5, T6, T7, T8, T9;
-       if (targetsStartIndex !== -1) {
-        targets = actionLine.slice(targetsStartIndex + (actionLine.includes('tgt') ? 3 : 6)).split('/').map(item => item.trim());
-         
-         T1 = targets[0];
-         T2 = targets[1];
-         T3 = targets[2];
-         T4 = targets[3];
-         T5 = targets[4];
-         T6 = targets[5];
-         T7 = targets[6];
-         T8 = targets[7];
-         T9 = targets[8];
-       } else {
-         // Handle if no targets are found
-         T1 = T2 = T3 = T4 = T5 = T6 = T7 = T8 = T9 = undefined;
-       }
-
-        captureddata = {
-          ...captureddata,
-          ...currentdocument,
-          cmp,
-         name,
-         recodate: index !== -1 ? lines[index] : undefined, // Set recodate if found, otherwise undefined
-
-       addupto: dipsIndex !== -1 ? parts[dipsIndex + 2] : (addIndex !== -1 ? parts[addUpToIndex + 2] : undefined),
-       sl: stopLoss,
-       target1: T1,
-       target2: T2,
-       target3: T3,
-       target4: T4,
-       target5: T5,
-       target6: T6,
-       target7: T7,
-       target8: T8,
-       target9: T9,
-        };
-        
-      }
-    });
-    modifydocument({...captureddata})
-  };
+    } catch (error) {
+      console.error('Error fetching data from server:', error);
+      return [];
+    }
+  }
+  
+  
   
 
   useEffect(() => {
@@ -254,9 +185,25 @@ export const RecommendationComponent = (props: any) => {
   
     let currentdocument1={...currentdocument};
     console.log ("", currentdocument )
-    const handleAddButtonClick = () => {
-      getRecommendationsObjects();
+    const values = {
+      infostring: currentdocument1.rectext // rectext se infostring ko set karein
     };
+
+    const handleAddButtonClick = async () => {
+      try {
+        console.log('Executing GraphQL query...');
+        
+        const result = await getRecommendationsObjects(values); // Assuming you have values defined somewhere
+        console.log('GraphQL query successful. Result:', result);
+        modifydocument(result);
+
+        // Handle the result as needed, maybe update the state with the result
+      } catch (error) {
+        console.error('Error fetching data from server:', error);
+        // Handle the error, maybe show a message to the user
+      }
+    };
+    
     return (
       <>
         <Loader display={loaderDisplay} />
@@ -276,7 +223,7 @@ export const RecommendationComponent = (props: any) => {
         style={{ width: '100%', padding: '5px' , marginBottom: '22px' }} 
       />*/}
       
-<button 
+      <button 
   onClick={handleAddButtonClick} 
   style={{ 
     backgroundColor: 'skyblue', 
@@ -285,7 +232,6 @@ export const RecommendationComponent = (props: any) => {
     border: 'none', 
     borderRadius: '5px', 
   }} 
- // disabled={!currentdocument.rectext} // Disable the button when there is no text
 >
   Add
 </button>
