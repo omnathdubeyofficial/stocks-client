@@ -214,19 +214,11 @@ export const RecommendationComponent = (props: any) => {
 
             <M_Textarea  wd="12" label="" name="rectext" currdoc={currentdocument1} section={'rectext'} modifydoc={modifydocument}/>
 
-
-       {/*  <textarea
-        className="textarea_itss"
-        rows={6}  
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)} 
-        style={{ width: '100%', padding: '5px' , marginBottom: '22px' }} 
-      />*/}
       
       <button 
   onClick={handleAddButtonClick} 
   style={{ 
-    backgroundColor: 'skyblue', 
+    backgroundColor: '#647', 
     color: 'white', 
     padding: '10px 30px', 
     border: 'none', 

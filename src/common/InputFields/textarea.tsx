@@ -50,34 +50,57 @@ export function Textarea(props: Iinput) {
     if (onclick) onclick(true);
   };
 
+  const handleClearButtonClick = () => {
+    setTextValue('');
+    setCalValue(currdoc, section, '', modifydoc, cal);
+  };
+
   return (
-    <div className={`col-${wd}`}>
-      {!disabled ? (
-        <>
-          <div className="form-group">
-            <textarea
-              className="form-control"
-              disabled={disabled}
-              rows={8}
-              name={name}
-              autoComplete="off"
-              required
-              placeholder="Recommendations Input"
-              ref={inpref}
-              value={textValue}
-              onChange={handleTextareaChange}
-              onBlur={handleTextareaBlur}
-              onClick={handleTextareaClick}
-              onFocus={handleTextareaFocus}
-            />
-          </div>
-          <div className="field-error">{errorMsg}</div>
-        </>
-      ) : (
-        <LabelField label={label} currdoc={currdoc} section={section} wd={"12"} />
-      )}
-    </div>
-  );
+  <div className={`col-${wd}`}>
+    {!disabled ? (
+      <>
+        <div className="form-group">
+  
+
+          <textarea
+            className="form-control"
+            disabled={disabled}
+            rows={12}
+            name={name}
+            autoComplete="off"
+            required
+            placeholder="Recommendations Input"
+            ref={inpref}
+            value={textValue}
+            onChange={handleTextareaChange}
+            onBlur={handleTextareaBlur}
+            onClick={handleTextareaClick}
+            onFocus={handleTextareaFocus}
+          />
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+  <button
+    type="button"
+    onClick={handleClearButtonClick}
+    style={{
+      backgroundColor: '#f44336', // Red color
+      color: 'white',              // White text color
+      padding: '2px 25px',        // Padding
+      border: 'none',              // No border
+      borderRadius: '5px',         // Rounded corners
+      cursor: 'pointer'            // Pointer cursor on hover
+    }}
+  >
+    Clear
+  </button>
+</div>
+        </div>
+        <div className="field-error">{errorMsg}</div>
+      </>
+    ) : (
+      <LabelField label={label} currdoc={currdoc} section={section} wd={"12"} />
+    )}
+  </div>
+);
 }
 
 export const M_Textarea = React.memo(Textarea);
