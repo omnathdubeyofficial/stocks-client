@@ -212,9 +212,7 @@ export const RecommendationComponent = (props: any) => {
      
             <div className="row_itss">
 
-            <M_Textarea  wd="12" label="" name="rectext" currdoc={currentdocument1} section={'rectext'} modifydoc={modifydocument}/>
-
-      
+            <M_Textarea  wd="12" label="" name="rectext" currdoc={currentdocument1} section={'rectext'} modifydoc={modifydocument}/>      
       <button 
   onClick={handleAddButtonClick} 
   style={{ 
@@ -225,7 +223,7 @@ export const RecommendationComponent = (props: any) => {
     borderRadius: '5px', 
   }} 
 >
-  Add
+Add
 </button>
 </div>
 <div className="row_itss">

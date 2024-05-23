@@ -27,7 +27,7 @@ query($applicationid:String!,$client:String!,$lang:String!,$z_id:String)
     uuser
     ddate
     dtime
-  duser
+    duser
 }
 }
 `;
