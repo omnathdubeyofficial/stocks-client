@@ -1,15 +1,15 @@
 
 import React, { useMemo,useCallback } from 'react'
-import Table from '../common/table/Table'
-import Column from '../common/table/Column'
+import Table from '../../common/table/Table'
+import Column from '../../common/table/Column'
 import { Redirect, withRouter } from 'react-router-dom'
-import fetchGQL from '../common/queries/stocksnews'
-import deleteGQL from '../common/mutations/deletestocksnews'
-import useTableAction from '../common/Hooks/useTableAction'
-import {useAltKey,useKey} from '../common/shortcurkeys'
-import Loader from '../common/Loader/Loader'
-import Messagesnackbar from '../common/Alert'
-import AlertDialog from '../common/PopupModals/ConfirmationModal'
+import fetchGQL from '../../common/queries/stocksnews'
+import deleteGQL from '../../common/mutations/deletestocksnews'
+import useTableAction from '../../common/Hooks/useTableAction'
+import {useAltKey,useKey} from '../../common/shortcurkeys'
+import Loader from '../../common/Loader/Loader'
+import Messagesnackbar from '../../common/Alert'
+import AlertDialog from '../../common/PopupModals/ConfirmationModal'
 
 function BuyerList() {
 

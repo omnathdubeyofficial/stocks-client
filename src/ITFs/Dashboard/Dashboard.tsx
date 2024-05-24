@@ -8,15 +8,15 @@ import {SideBar} from './Menu/SideBar'
 
 import {connect} from 'react-redux'
 import UserComponent from '../../User/UserComponent'
-import Stocksnews from '../../User/Stocksnews'
+import Stocksnews from '../../ITFs/News/Stocksnews'
 import UserListComponent from '../../User/UserListComponent'
 import RecommendationList from '../recommendation/RecommendationList'
 import RecommendationComponent from '../recommendation/RecommendationComponent'
 import {BrowserRouter as Rounter, Route, Switch} from 'react-router-dom'
 import { SearchSelectInput } from '../../common/InputFields/SearchSelectInput'
 import Stepperimp from '../../common/Stepper/stepperimp'
-import Stocksnewslist from '../../User/Stocksnewslist'
-import Individualnews from '../../User/individualnews'
+import Stocksnewslist from '../../ITFs/News/Stocksnewslist'
+import Individualnews from '../../ITFs/News/individualnews'
 
 
 const DashboardComponent = (props: any) => {

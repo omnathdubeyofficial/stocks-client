@@ -1,20 +1,20 @@
 import React, { useMemo, useCallback, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Table from '../common/table/Table';
-import Column from '../common/table/Column';
-import fetchGQL from '../common/queries/individualnewsQuery';
-import deleteGQL from '../common/mutations/deleteindividualnews';
-import updateGQL from '../common/mutations/updateindividualcompany';
-import useTableAction from '../common/Hooks/useTableAction';
-import { useAltKey } from '../common/shortcurkeys';
-import Messagesnackbar from '../common/Alert';
-import AlertDialog from '../common/PopupModals/ConfirmationModal';
-import { SelectInput } from '../common/InputFields/Select';
-import DatePicker from '../common/DatePicker';
-import constant from '../common/constant';
-import { SearchSelectInput } from '../common/InputFields/SearchSelect';
-import { fetchStocks, addstocks } from '../ITFs/Redux/ActionCreators';
+import Table from '../../common/table/Table';
+import Column from '../../common/table/Column';
+import fetchGQL from '../../common/queries/individualnewsQuery';
+import deleteGQL from '../../common/mutations/deleteindividualnews';
+import updateGQL from '../../common/mutations/updateindividualcompany';
+import useTableAction from '../../common/Hooks/useTableAction';
+import { useAltKey } from '../../common/shortcurkeys';
+import Messagesnackbar from '../../common/Alert';
+import AlertDialog from '../../common/PopupModals/ConfirmationModal';
+import { SelectInput } from '../../common/InputFields/Select';
+import DatePicker from '../../common/DatePicker';
+import constant from '../../common/constant';
+import { SearchSelectInput } from '../../common/InputFields/SearchSelect';
+import { fetchStocks, addstocks } from '../../ITFs/Redux/ActionCreators';
 
 
 function BuyerList(props) {
@@ -106,6 +106,8 @@ function BuyerList(props) {
               <Column fieldname="companynews" columnname="Company News"></Column>
               <Column fieldname="date" columnname="Date"></Column>
               <Column fieldname="isread" columnname="Status"></Column>
+              <Column fieldname="recocompany" columnname="Recocompany"></Column>
+
               <Column
   columnname="Recocompany"
   render={

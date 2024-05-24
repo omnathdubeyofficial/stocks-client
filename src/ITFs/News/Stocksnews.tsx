@@ -1,23 +1,23 @@
 import React, { useState,useEffect,useRef } from 'react'
 import { AnyIfEmpty, connect } from 'react-redux'
-import DatePicker from '../common/DatePicker'
-import { FlatInput } from '../common/InputFields/Input'
-import * as doctypes from '../common/Doctypes';
-import saveUser from '../common/mutations/savestocksnews'
-import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../common/CommonLogic';
+import DatePicker from '../../common/DatePicker'
+import { FlatInput } from '../../common/InputFields/Input'
+import * as doctypes from '../../common/Doctypes';
+import saveUser from '../../common/mutations/savestocksnews'
+import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../../common/CommonLogic';
 import shortid from 'shortid'
-import { deleteDocument,saveDocument,addusers } from '../ITFs/Redux/ActionCreators'
-import deleteUser from '../common/mutations/deletestocksnews';
-import { execGql, execGql_xx } from '../common/gqlclientconfig';
-import usersQuery from '../common/queries/stocksnews'
-import Messagesnackbar from '../common/Alert'
-import AlertDialog from '../common/PopupModals/ConfirmationModal'
-import useSaveAction from '../common/Hooks/useSaveAction'
-import Loader from '../common/Loader/Loader'
-import {initDocumentstatus,newDocument} from '../common/constant'
-import {runCheck,requiredCheck,getDtFormat,getTimeFormat,getFromToDate,getDateYYYYMMDDHHMI,getDateYYYYMMDD,maxLength40,maxLength128,setErrorValue,getValue,setValue} from '../common/validationlib';
+import { deleteDocument,saveDocument,addusers } from '../../ITFs/Redux/ActionCreators'
+import deleteUser from '../../common/mutations/deletestocksnews';
+import { execGql, execGql_xx } from '../../common/gqlclientconfig';
+import usersQuery from '../../common/queries/stocksnews'
+import Messagesnackbar from '../../common/Alert'
+import AlertDialog from '../../common/PopupModals/ConfirmationModal'
+import useSaveAction from '../../common/Hooks/useSaveAction'
+import Loader from '../../common/Loader/Loader'
+import {initDocumentstatus,newDocument} from '../../common/constant'
+import {runCheck,requiredCheck,getDtFormat,getTimeFormat,getFromToDate,getDateYYYYMMDDHHMI,getDateYYYYMMDD,maxLength40,maxLength128,setErrorValue,getValue,setValue} from '../../common/validationlib';
  import {Redirect,withRouter } from 'react-router-dom'
-import AppbarBottom from '../common/AppbarBottom'
+import AppbarBottom from '../../common/AppbarBottom'
 
 
 const handleSave = async (currentdocument: any) => {
