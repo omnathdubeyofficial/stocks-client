@@ -5,7 +5,7 @@ import Table from '../../common/table/Table';
 import Column from '../../common/table/Column';
 import fetchGQL from '../../common/queries/individualnewsQuery';
 import deleteGQL from '../../common/mutations/deleteindividualnews';
-import updateGQL from '../../common/mutations/updateindividualcompany';
+import updateGQL from '../../common/mutations/saveReccomendation';
 import useTableAction from '../../common/Hooks/useTableAction';
 import { useAltKey } from '../../common/shortcurkeys';
 import Messagesnackbar from '../../common/Alert';
@@ -17,7 +17,7 @@ import { SearchSelectInput } from '../../common/InputFields/SearchSelect';
 import { fetchStocks, addstocks } from '../../ITFs/Redux/ActionCreators';
 
 
-function BuyerList(props) {
+function Individualnewslist(props) {
   const [stocklist, setstocklist] = useState([]);
   const fetchquery = useMemo(() => fetchGQL, []);
   const deletequery = useMemo(() => deleteGQL, []);
@@ -33,7 +33,7 @@ function BuyerList(props) {
   const [
     tableData, loaderDisplay, docno, setDocno, redirect, setRedirect, documentstatus, deleteDocument, 
     closeSnackBar, getTableData, setloaderDisplay, setTableData, setDocumentstatus
-  ] = useTableAction(fetchquery, "individualnew", deletequery, querypara);
+  ] = useTableAction(fetchquery, "individualnew", deletequery,  querypara);
 
 
   let tabledata: any = []
@@ -149,4 +149,4 @@ const mapStateToProps = (state: any) => {
 
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(BuyerList);
+export default connect(mapStateToProps, mapDispatchToProps)(Individualnewslist);

@@ -78,15 +78,15 @@ function Table(props: any) {
                 {/* <div className="table-header-text">
                             <h3>{headerText}</h3><span>({data.length})</span>
                         </div> */}
+               {/* <div className="goble-search"><input ref={searchref} placeholder="search" style={{ height: '40px', fontSize: "16px" }} onChange={(e) => { globalSearch(e.target.value) }} /><i className="fas fa-search" /></div>*/}
+
                 <div className="goble-search"><input ref={searchref} placeholder="search" style={{ height: '40px', fontSize: "16px" }} onChange={(e) => { globalSearch(e.target.value) }} /><i className="fas fa-search" /></div>
-
-                <div className="goble-search"><input ref={searchref} placeholder="z id" style={{ height: '40px', fontSize: "16px" }} onChange={(e) => { globalSearch(e.target.value) }} /><i className="fas fa-search" /></div>
-
+{/*
                 <div>
                     <input type="text" className="form-control" placeholder='recocompany' />
-                </div>
+                    </div> 
 
-                <button type="button" className="btn btn-primary m-3">Save</button>
+                <button type="button" className="btn btn-primary m-3">Save</button>*/}
 
                 <button className="tabel-add-button" onClick={() => addNew("NO-ID", true)}>Add new <span className="las la-arrow-right"></span></button>
 

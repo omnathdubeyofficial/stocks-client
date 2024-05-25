@@ -1,6 +1,8 @@
 import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../../common/CommonLogic';
 import constant from '../../common/constant'
 import recommendationsQuery from '../../common/queries/recommendationQuery'
+import individualnewsQuery from '../../common/queries/individualnewsQuery'
+
 import recommendationItems from '../../common/queries/recommendationItemsQuery'
 import deleteRecommendation from '../../common/mutations/DeleteRecommendation';
 import saveReccomendation from '../../common/mutations/saveReccomendation';
@@ -150,4 +152,26 @@ let   {applicationid ,
     
   }
 
-  
+  export async function getRecommendations1(values: any) {
+    var result: any = '', errorMessage = '', errors = new Array();
+    try {
+      result = await execGql('query', individualnewsQuery, values)
+      if (!result) {
+        console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+        return [];
+        // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+      }
+      else {
+        //return result.data;
+        console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&',result.data.individualnews )
+        return result.data.individualnews[0];
+      }
+    }
+    catch (err:any) {
+      errors = err.errorsGql;
+      errorMessage = err.errorMessageGql;
+      console.log({ "errors": errors, "errorMessage": errorMessage })
+      // return callback({"errors":errors,"errorMessage":errorMessage},'' );
+    }
+    
+  }

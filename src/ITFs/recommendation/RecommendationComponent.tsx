@@ -8,7 +8,7 @@ import { SearchSelectInput } from '../../common/InputFields/SearchSelect'
 import * as doctypes from '../../common/Doctypes';
 import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../../common/CommonLogic';
 import useSaveAction from '../../common/Hooks/useSaveAction'
-import { handleDelete, getRecommendations, handleSave,handlesendRecommendationNotification } from './CrudRecommendation'
+import { handleDelete, getRecommendations,getRecommendations1, handleSave,handlesendRecommendationNotification } from './CrudRecommendation'
 import Messagesnackbar from '../../common/Alert'
 import AlertDialog from '../../common/PopupModals/ConfirmationModal'
 import {
@@ -27,6 +27,7 @@ import { FileuploadComponent } from '../../common/FileuploadComponent'
 import { OnlineFileuploadComponent } from '../../common/OnlineFileuploadComponent'
 import shortid from 'shortid'
 import { execGql, execGql_xx } from '../../common/gqlclientconfig';
+import { Comment } from '@material-ui/icons'
 
 
 const newDocument = (doctype: String, doctypetext: String) => {
@@ -137,26 +138,45 @@ export const RecommendationComponent = (props: any) => {
     }
   }
   
-  
-  
-
   useEffect(() => {
-    let z_id = new URLSearchParams(props.location.search).get("z_id")
-    compinp.current.focus()
-    if (z_id != 'NO-ID') {
-      setloaderDisplay(true)
-      getRecommendations({ applicationid: '15001500', client: '45004500', lang: 'EN', z_id }).then((data: any) => {
-        modifydocument(data[0])
-        setloaderDisplay(false)
-      });
-    }
-    if (z_id == 'NO-ID') {
-
-
+    let z_id = new URLSearchParams(props.location.search).get("z_id");
+    compinp.current.focus();
+  
+    if (z_id && z_id !== 'NO-ID') {
+      setloaderDisplay(true);
+  
+      const fetchData = async () => {
+        try {
+          // First attempt to fetch data from getRecommendations1
+          try {
+            const data1 = await getRecommendations1({ applicationid: '15001500', client: '45004500', lang: 'EN', z_id });
+            const values = {
+              name: data1.recocompany,
+              comment1: data1.companynews,
+              recodate: data1.date
+            };
+            modifydocument(values);
+          } catch (error1) {
+            // If getRecommendations1 fails, fall back to getRecommendations
+            try {
+              const data2 = await getRecommendations({ applicationid: '15001500', client: '45004500', lang: 'EN', z_id });
+              modifydocument(data2[0]);
+            } catch (error2) {
+              console.error('Error fetching data from both sources:', error2);
+            }
+          }
+        } finally {
+          setloaderDisplay(false);
+        }
+      };
+  
+      fetchData();
+    } else {
       modifydocument(newDocument(doctype, doctypetext));
-
     }
-  }, [])
+  }, [props.location.search]);
+  
+  
   const getStockcmp = () => {
     setloaderDisplay(true); compinp.current.focus()
     fetchStocks({},
@@ -239,9 +259,8 @@ Add
             </div>
             <div className="row_itss">
               <FlatInput wd="3" label="Weightage" name="weightage" currdoc={currentdocument1} section={'weightage'} modifydoc={modifydocument} />
-              <FlatInput wd="3" label="Time Frame" name="timeframe" currdoc={currentdocument1} section={'timeframe'} modifydoc={modifydocument} />
 
-             {/* <SelectInput wd="3" label="Time Frame" options={timeframeoptions} name="timeframe" currdoc={currentdocument1} section={'timeframe'} modifydoc={modifydocument} />*/}
+              <SelectInput wd="3" label="Time Frame" options={timeframeoptions} name="timeframe" currdoc={currentdocument1} section={'timeframe'} modifydoc={modifydocument} />
               <div className={"col_itss-3"}></div>
               <div className={"col_itss-3"}></div>
             </div>
