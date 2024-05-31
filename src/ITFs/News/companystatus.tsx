@@ -142,7 +142,7 @@ export const RecommendationComponent = (props: any) => {
           <div className="grid_itss">
           <div className="row_itss">
               <SearchSelectInput inpref={compinp} wd="3" label="" options={M_stocklist} name="companyname" currdoc={currentdocument1} section={'companyname'} modifydoc={modifydocument} refresh={getStockcmp} />
-              <DatePicker wd="3" label="Review Date" name="reviewdate" currdoc={currentdocument1} section={'reviewdate'} modifydoc={modifydocument} format="yyyymmdd" />
+              <DatePicker wd="3" label="Review Date" name="reviewdate" currdoc={currentdocument1} section={'reviewdate'} modifydoc={modifydocument} />
               <SelectInput wd="3" label="Status" options={timeframeoptions} name="status" currdoc={currentdocument1} section={'status'} modifydoc={modifydocument} />
               <div className={"col_itss-3"}></div>
             </div>
