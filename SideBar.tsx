@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react'
-import { M_MenuItem } from './MenuItem'
+import { M_MenuItem } from './src/ITFs/Dashboard/Menu/MenuItem'
 import {connect} from 'react-redux'
-import {useAltKey,useKey} from '../../../common/shortcurkeys'
+import {useAltKey,useKey} from './src/common/shortcurkeys'
 import {Redirect,withRouter } from 'react-router-dom'
-import {handleSignoutUsernameJWT,checkCurrentUsernameJWT,ActionToDispatch,ActionToRedirect} from '../../Redux/reducers/actions'
+import {handleSignoutUsernameJWT,checkCurrentUsernameJWT,ActionToDispatch,ActionToRedirect} from './src/ITFs/Redux/reducers/actions'
 export function SideBar1(props: any) {
   const { selectcomponent } = props
   const menuList = [
@@ -36,9 +36,9 @@ export function SideBar1(props: any) {
       active: '',
     },
     {
-      name: 'Inventory',
+      name: 'Company Status ',
       component: '',
-      slug: '/Inventory',
+      slug: '/Companystatus',
       iconName: 'las la-receipt',
       active: '',
     },

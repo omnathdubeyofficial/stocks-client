@@ -4,7 +4,7 @@ import Customers from '../Customers/Customers'
 import Projects from '../Projects/Projects'
 import Header from './Header/Header'
 import IndicatorCards from './Indicators/IndicatorCards'
-import {SideBar} from './Menu/SideBar'
+import {SideBar} from '../../../SideBar'
 
 import {connect} from 'react-redux'
 import UserComponent from '../../User/UserComponent'
@@ -17,6 +17,8 @@ import { SearchSelectInput } from '../../common/InputFields/SearchSelectInput'
 import Stepperimp from '../../common/Stepper/stepperimp'
 import Stocksnewslist from '../../ITFs/News/Stocksnewslist'
 import Individualnews from '../../ITFs/News/individualnews'
+import Companystatus from '../News/companystatus'
+import Companystatuslist from '../News/companystatuslist'
 
 
 const DashboardComponent = (props: any) => {
@@ -51,6 +53,13 @@ function Dashboard(props: any) {
             <Route exact path="/Users">
               <UserListComponent {...props}/>
             </Route>
+            <Route exact path="/Companystatus">
+              <Companystatus {...props}/>
+            </Route>
+            <Route exact path="/Companystatuss">
+              <Companystatuslist {...props}/>
+            </Route>
+            
             <Route exact path="/useredit">
               <UserComponent {...props}/>
             </Route>

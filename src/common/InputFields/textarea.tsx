@@ -69,7 +69,7 @@ export function Textarea(props: Iinput) {
             name={name}
             autoComplete="off"
             required
-            placeholder="Recommendations Input"
+            placeholder=" "
             ref={inpref}
             value={textValue}
             onChange={handleTextareaChange}

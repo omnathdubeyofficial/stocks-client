@@ -18,6 +18,7 @@ import {initDocumentstatus,newDocument} from '../../common/constant'
 import {runCheck,requiredCheck,getDtFormat,getTimeFormat,getFromToDate,getDateYYYYMMDDHHMI,getDateYYYYMMDD,maxLength40,maxLength128,setErrorValue,getValue,setValue} from '../../common/validationlib';
  import {Redirect,withRouter } from 'react-router-dom'
 import AppbarBottom from '../../common/AppbarBottom'
+import { M__Textarea } from '../../common/InputFields/newtextarea';
 
 
 const handleSave = async (currentdocument: any) => {
@@ -201,14 +202,10 @@ const mergedDocument = { ...defaultDocumentValues, ...currentdocument };
             <DatePicker wd="3" label="Date" name="newsdate" currdoc={mergedDocument} section={'newsdate'} modifydoc={modifydocument} />
 
             <div className="row_itss">
-        <textarea
-          className="textarea_itss"
-          rows={18} 
-         // placeholder="News Text" 
-          value={mergedDocument.news}
-          onChange={(e) => modifydocument({ ...currentdocument, news: e.target.value })} 
-          style={{ width: '100%', padding: '5px' }} 
-        />
+
+            <M__Textarea  wd="12" label=""  name="news" currdoc={mergedDocument} section={'news'} modifydoc={modifydocument}/>      
+
+      
         <div className="col_itss-3"></div>
       </div>
           

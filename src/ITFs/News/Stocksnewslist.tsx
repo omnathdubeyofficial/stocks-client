@@ -42,7 +42,7 @@ function BuyerList() {
   
 
   if (redirect) {
-    let redirectpath = '/Projects?z_id=' + docno
+    let redirectpath = '/Projectsndshsfbdhfj?z_id=' + docno
     return <Redirect push to={redirectpath} /> 
   } else
    return (

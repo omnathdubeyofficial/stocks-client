@@ -298,8 +298,7 @@ Add
                <div className="row_itss">
               <OnlineFileuploadComponent
                 section={'reffiles'}
-                autoupload={true}
-               
+                autoupload={true}       
                 saveasis={() => {  }}
                 currdoc={currentdocument1}
                 modifydoc={modifydocument}
