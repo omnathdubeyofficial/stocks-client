@@ -17,10 +17,7 @@ function RecommendationList() {
   const [tableData, loaderDisplay, docno, setDocno, redirect, setRedirect, documentstatus, deleteDocument, closeSnackBar]: any = useTableAction(fetchquery, "companystatuslist", deletequery);
   const [showForm, setShowForm] = useState(false); // State to manage form visibility
 
-  let tabledata: any = [];
-  if (tableData) {
-    tabledata = useMemo(() => tableData, [loaderDisplay]);
-  }
+  let tabledata: any = useMemo(() => tableData, [tableData]);
 
   const setDocStatus = (id: string, redirect: boolean) => {
     setDocno(id);

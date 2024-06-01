@@ -9,6 +9,7 @@ import useSaveAction from '../../common/Hooks/useSaveAction'
 import { handleDelete, getRecommendations, handleSave,handlesendRecommendationNotification } from './Crudcompanystatus'
 import Messagesnackbar from '../../common/Alert'
 import AlertDialog from '../../common/PopupModals/ConfirmationModal'
+
 import {
   runCheck, requiredCheck, getDtFormat, getTimeFormat, getFromToDate, getDateYYYYMMDDHHMI, getDateYYYYMMDD, maxLength40, maxLength128,
   setErrorValue, getValue, setValue
@@ -40,14 +41,13 @@ const newDocument = (doctype: String, doctypetext: String) => {
 };
 
 export const handleSaveCheck = (currentdocument: any) => {
-  const { touched, companyname,status,reviewdate,  validatemode } = currentdocument;
+  const { touched, companyname,status,  validatemode } = currentdocument;
 
   
 console.log('nvl(target1, )',runCheck(nvl(companyname, ''), [requiredCheck]))
 
   let companyname_check = runCheck(nvl(companyname, ''), [requiredCheck]);
   let status_check = runCheck(nvl(status, ''), [requiredCheck]);
-  let reviewdate_check = runCheck(nvl(reviewdate, ''), [requiredCheck]);
   
 
 
@@ -56,7 +56,6 @@ console.log('nvl(target1, )',runCheck(nvl(companyname, ''), [requiredCheck]))
     currentdocument.errorsAll = {
       companyname: companyname_check,
       status: status_check,
-      reviewdate: reviewdate_check,
     }
     validatemode == 'touch' 
   }
@@ -64,7 +63,6 @@ console.log('nvl(target1, )',runCheck(nvl(companyname, ''), [requiredCheck]))
     currentdocument.errorsAll = {
       companyname: checkTouched(nvl(touched.companyname, false), companyname_check),
       status: checkTouched(nvl(touched.status, false), status_check),
-      reviewdate: checkTouched(nvl(touched.reviewdate, false), reviewdate_check)
    
     }
   }
@@ -80,7 +78,7 @@ const timeframeoptions = [{ 'key': 'Hold', 'value': 'Hold' },
 export const RecommendationComponent = (props: any) => {
   const compinp: any = useRef(null);
   const doctype = doctypes.RECOMMENDATION;
-  const doctypetext = '';
+  const doctypetext = 'Companyname';
   const resetFocus = () => {
     setTimeout(() => compinp.current.focus(), 1000);
   };
