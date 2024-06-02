@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { execGql } from '../../common/gqlclientconfig';
+import { execGql } from '../gqlclientconfig';
 import constant, { initDocumentstatus } from '../constant';
 
 function useTableAction(fetchGraphQuery, doctype, deleteGraphQuery) {

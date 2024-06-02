@@ -35,12 +35,13 @@ export const handleSave = async (currentdocument: any) => {
         return result.data;
       }
     }
-    catch (err:any) {
-      errors = err.errorsGql;
-      errorMessage = err.errorMessageGql;
-      console.log({ "errors": errors, "errorMessage": errorMessage })
-    }
-    
+    catch (err: any) {
+      const errors = err.errorsGql;
+      const errorMessage = err.errorMessageGql;
+      const error = { "errors": errors, "errorMessage": errorMessage };
+      console.log(error);
+      reject(error);
+  }
   }) 
   }
 

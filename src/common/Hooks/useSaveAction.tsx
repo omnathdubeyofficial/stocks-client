@@ -83,50 +83,59 @@ function useSaveAction( handleSave:any,handleSaveCheck:any,doctype:String,doctyp
               resetFocus()      
             break;
     
-          case 'save':
-            console.log ("print currentDoc" , currentDoc);
-            currentDoc.validatemode = 'save';
-            currentDoc = handleSaveCheck(currentDoc);
-            let isSaveOk = !Object.keys(currentDoc.errorsAll).some((x: any) => currentDoc.errorsAll[x]);
-            //currentDoc = getDocumenForSave(currentDoc)
-            if (!isSaveOk) {
-              modifydocument({...currentDoc})
-              docstatus.snackbaropen = true
-              docstatus.snackbarseverity = 'error'
-              docstatus.snackbartext = 'Errors found'
-              setloaderDisplay(false)
-              setDocumentstatus(docstatus);
-            }
-            else {
-              try{
-              if (isNew){           
-                const resp =await handleSave(currentDoc)
-                console.log( "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",currentDoc)
-                setloaderDisplay(false)
-                modifydocument(newDocument(doctype,doctypetext))
-              }else {
-                let retdoc:any=await handleSave(currentDoc)
-                console.log( "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",currentDoc)
-
-                setloaderDisplay(false)
-                modifydocument({...retdoc["save"+doctypetext]})
-                
+            case 'save':
+              console.log("print currentDoc", currentDoc);
+              currentDoc.validatemode = 'save';
+              currentDoc = handleSaveCheck(currentDoc);
+              let isSaveOk = !Object.keys(currentDoc.errorsAll).some((x: any) => currentDoc.errorsAll[x]);
+              if (!isSaveOk) {
+                  modifydocument({ ...currentDoc });
+                  docstatus.snackbaropen = true;
+                  docstatus.snackbarseverity = 'error';
+                  docstatus.snackbartext = 'Errors found';
+                  setloaderDisplay(false);
+                  setDocumentstatus(docstatus);
+              } else {
+                  try {
+                      if (isNew) {
+                          const resp = await handleSave(currentDoc);
+                          console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", currentDoc);
+                          setloaderDisplay(false);
+                          modifydocument(newDocument(doctype, doctypetext));
+                      } else {
+                          let retdoc: any = await handleSave(currentDoc);
+                          console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", currentDoc);
+                          setloaderDisplay(false);
+                          modifydocument({ ...retdoc["save" + doctypetext] });
+                      }
+                      docstatus.snackbaropen = true;
+                      docstatus.snackbarseverity = 'success';
+                      docstatus.snackbartext = doctypetext + ' Saved';
+                      setDocumentstatus(docstatus);
+                  } catch (err: any) {
+                      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", err);
+          
+                      // Log the full error object to understand its structure
+                      console.error("Error details:", JSON.stringify(err, null, 2));
+          
+                      // Extract the error message
+                      const errorMessage = err.errorMessage || 'An unexpected error occurred';
+          
+                      // Log the extracted error message
+                      console.log("**********************", errorMessage);
+          
+                      // Update the snackbar with the extracted error message
+                      docstatus.snackbaropen = true;
+                      docstatus.snackbarseverity = 'error';
+                      docstatus.snackbartext = errorMessage;
+                      setDocumentstatus(docstatus);
+                      setloaderDisplay(false);
+                  }
               }
-              docstatus.snackbaropen = true;
-              docstatus.snackbarseverity = 'success';
-              docstatus.snackbartext = doctypetext + ' Saved';
-              setDocumentstatus(docstatus);
-            }catch(err:any){
-              console.log( "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",err)
-              docstatus.snackbaropen = true;
-              docstatus.snackbarseverity = 'error';
-              docstatus.snackbartext = err.errorMessageGql;
-              setDocumentstatus(docstatus);
-              setloaderDisplay(false)
-            }
-          }
-            //resetFocus();
-            break;
+              break;
+          
+          
+          
         }
       }
       const handleDelete = async (z_id: String) => {
