@@ -12,23 +12,16 @@ function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any
     const [documentstatus, setDocumentstatus] = useState(initDocumentstatus)
     const values = {...constant}
     useEffect(() => {
-      const interval = setInterval(() => {
-        getTableData()
-          .then((data: any) => {
-            setTableData(data);
-            setloaderDisplay(false);
-          })
-          .catch(error => {
-            // Handle errors here
-            console.error('Error fetching table data:', error);
-          });
-      }, 1000); // Interval set to 1000 milliseconds i.e., 1 second
-    
-      // Cleanup function to clear interval on component unmount
-      return () => clearInterval(interval);
-    }, []); // Empty dependency array means useEffect runs only once on component mount
-    
-
+     
+      getTableData().then((data:any)=>{
+          
+             setTableData(data)
+             setloaderDisplay(false)         
+         });
+       return () => {
+         
+       }
+     })
    const getTableData = useCallback(() => {
         var result: any = '';
         return new Promise(async(reolve,reject)=>{

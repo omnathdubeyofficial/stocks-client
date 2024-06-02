@@ -4,7 +4,7 @@ import Column from '../../common/table/Column';
 import { Redirect, withRouter } from 'react-router-dom';
 import fetchGQL from '../../common/queries/companystatuslist';
 import deleteGQL from '../../common/mutations/deletecompanystatus';
-import useTableAction from '../../common/Hooks/useTableAction';
+import useTableAction from '../../common/Hooks/newuseTable';
 import { useAltKey, useKey } from '../../common/shortcurkeys';
 import Loader from '../../common/Loader/Loader';
 import Messagesnackbar from '../../common/Alert';
