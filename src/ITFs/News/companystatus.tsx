@@ -27,6 +27,8 @@ import { OnlineFileuploadComponent } from '../../common/OnlineFileuploadComponen
 import shortid from 'shortid'
 import { M__Textarea } from '../../common/InputFields/newtextarea'
 import Companystatuslist from './companystatuslist'
+import fetchGQL from '../../common/queries/companycodeslist';
+import useTableAction from '../../common/Hooks/useLiveUpdate';
 
 const newDocument = (doctype: String, doctypetext: String) => {
   return {
@@ -71,10 +73,8 @@ console.log('nvl(target1, )',runCheck(nvl(companyname, ''), [requiredCheck]))
   return currentdocument;
 }
 
-const timeframeoptions = [{ 'key': 'Hold', 'value': 'Hold' },
-{ 'key': 'Blacklist', 'value': 'Blacklist' },
-{ 'key': 'Review', 'value': 'Review' }
-]
+
+
 export const RecommendationComponent = (props: any) => {
   const compinp: any = useRef(null);
   const doctype = doctypes.RECOMMENDATION;
@@ -82,10 +82,23 @@ export const RecommendationComponent = (props: any) => {
   const resetFocus = () => {
     setTimeout(() => compinp.current.focus(), 1000);
   };
+  const fetchquery = useMemo(() => fetchGQL, []);
+  const deletequery = useMemo(() => deleteGQL, []);
+  const [tableData,  docno, setDocno,  setRedirect,  deleteDocument,]: any = useTableAction(fetchquery, "companycodeslist", deletequery);
   const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteGQL);
   const [stocklist, setstocklist] = useState([]);
   const [z_id, setZ_id] = useState(new URLSearchParams(location.search).get("z_id"));
 
+
+  let tabledata: any = useMemo(() => tableData, [tableData]);
+  console.log("%%%%%%%%%%%%%%", tabledata)
+  const filteredData = tabledata.filter(item => item.code_type === 'Stockstatus');
+
+  const timeframeoptions = filteredData.map(item => ({
+      key: item.code_code,
+      value: item.code_code
+  }));
+  
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const newZ_id = searchParams.get("z_id");
