@@ -1,12 +1,9 @@
 import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../../common/CommonLogic';
 import constant from '../../common/constant'
-import recommendationsQuery from '../../common/queries/companystatuslist'
-import recommendationItems from '../../common/queries/recommendationItemsQuery'
-import deleteRecommendation from '../../common/mutations/DeleteRecommendation';
-import saveReccomendation from '../../common/mutations/savecompanystatus';
+import recommendationsQuery from '../../common/queries/companycodeslist'
+import saveReccomendation from '../../common/mutations/savecompanycode';
 import sendRecommendationNotification from '../../common/mutations/sendRecommendationNotification';
 import { execGql, execGql_xx } from '../../common/gqlclientconfig';
-import useSaveAction from '../../common/Hooks/useSaveAction'
 
 export const handleSave = async (currentdocument: any) => {
     var result: any = '', errorMessage = '', errors = new Array();
@@ -17,10 +14,12 @@ export const handleSave = async (currentdocument: any) => {
       let recoForSave = {
         ...constant,
         z_id: nvl(currentdocument.z_id, ''), 
-        companyname: nvl(currentdocument.companyname, ''),
-        comment: nvl(currentdocument.comment, ''),
-        status: nvl(currentdocument.status, ''),
-        reviewdate: nvl(currentdocument.reviewdate, ''),
+        code_code: nvl(currentdocument.code_code, ''),
+        code_type: nvl(currentdocument.code_type, ''),
+        code_desc: nvl(currentdocument.code_desc, ''),
+        code_desc1: nvl(currentdocument.code_desc1, ''),
+        code_desc2: nvl(currentdocument.code_desc2, ''),
+
         
       }
 
@@ -44,13 +43,6 @@ export const handleSave = async (currentdocument: any) => {
   }
   }) 
   }
-
-
-
-
-
-
-
 
   
   export const handleDelete = async (z_id: string) => {
@@ -84,8 +76,8 @@ export const handleSave = async (currentdocument: any) => {
       }
       else {
         //return result.data;
-        console.log("***************",result.data.companystatuslists )
-        return result.data.companystatuslists;
+        console.log("***************",result.data.companycodeslists )
+        return result.data.companycodeslists;
       }
     }
     catch (err:any) {

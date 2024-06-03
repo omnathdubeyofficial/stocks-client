@@ -19,6 +19,8 @@ import Stocksnewslist from '../../ITFs/News/Stocksnewslist'
 import Individualnews from '../../ITFs/News/individualnews'
 import Companystatus from '../News/companystatus'
 import Companystatuslist from '../News/companystatuslist'
+import Companycodes from '../News/companycodes'
+import Companycodeslist from '../News/companycodelist'
 
 
 const DashboardComponent = (props: any) => {
@@ -56,8 +58,15 @@ function Dashboard(props: any) {
             <Route exact path="/Companystatus">
               <Companystatus {...props}/>
             </Route>
-            <Route exact path="/Companystatuss">
+            <Route exact path="/newcomplist">
               <Companystatuslist {...props}/>
+            </Route>
+            
+            <Route exact path="/Companycodes">
+              <Companycodes {...props}/>
+            </Route>
+            <Route exact path="/Companycodess">
+              <Companycodeslist {...props}/>
             </Route>
             
             <Route exact path="/useredit">

@@ -47,7 +47,7 @@ export function Textarea(props: Iinput) {
           name={name}
           autoComplete="off"
           required
-          placeholder="Comment"
+          placeholder={label}
           ref={inpref}
           value={getValue(currdoc, section)}
           onChange={(event) => { setCalValue(currdoc, section, event.target.value, modifydoc, cal) }}
@@ -55,7 +55,6 @@ export function Textarea(props: Iinput) {
           onClick={()=>onclick(true)}
           onFocus={()=>{onclick(true)}}
         />:""}
-            <label > <span className="content-name"> {disabled? label+":"+getValue(currdoc, section):label}</span></label>
 
          
          

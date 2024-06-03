@@ -1,12 +1,10 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
-import DatePicker from '../../common/DatePicker'
 import { FlatInput } from '../../common/InputFields/Input'
 import { SelectInput } from '../../common/InputFields/Select'
-import { SearchSelectInput } from '../../common/InputFields/SearchSelect'
 import * as doctypes from '../../common/Doctypes';
 import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../../common/CommonLogic';
 import useSaveAction from '../../common/Hooks/useSaveAction'
-import { handleDelete, getRecommendations, handleSave } from './Crudcompanystatus'
+import { handleDelete, getRecommendations, handleSave } from './Crudcompanycodes'
 import Messagesnackbar from '../../common/Alert'
 import AlertDialog from '../../common/PopupModals/ConfirmationModal'
 
@@ -15,18 +13,14 @@ import {
   setErrorValue, getValue, setValue
 } from '../../common/validationlib';
 import { Redirect, withRouter } from 'react-router-dom'
-import AppbarBottom from '../../common/AppbarBottom'
-import { initDocumentstatus } from '../../common/constant'
 import { fetchStocks, addstocks } from '../Redux/ActionCreators'
 import { connect } from 'react-redux';
 import * as ActionTypes from '../Redux/ActionTypes'
 import Loader from '../../common/Loader/Loader'
-import deleteGQL from '../../common/mutations/deletecompanystatus'
-import { FileuploadComponent } from '../../common/FileuploadComponent'
-import { OnlineFileuploadComponent } from '../../common/OnlineFileuploadComponent'
+import deleteGQL from '../../common/mutations/deletecompanycodes'
 import shortid from 'shortid'
 import { M__Textarea } from '../../common/InputFields/newtextarea'
-import Companystatuslist from './companystatuslist'
+import Companycodeslist from './companycodelist'
 
 const newDocument = (doctype: String, doctypetext: String) => {
   return {
@@ -41,28 +35,27 @@ const newDocument = (doctype: String, doctypetext: String) => {
 };
 
 export const handleSaveCheck = (currentdocument: any) => {
-  const { touched, companyname,status,  validatemode } = currentdocument;
+  const { touched, code_code,  validatemode } = currentdocument;
 
   
-console.log('nvl(target1, )',runCheck(nvl(companyname, ''), [requiredCheck]))
+console.log('nvl(target1, )',runCheck(nvl(code_code, ''), [requiredCheck]))
 
-  let companyname_check = runCheck(nvl(companyname, ''), [requiredCheck]);
-  let status_check = runCheck(nvl(status, ''), [requiredCheck]);
+  let code_code_check = runCheck(nvl(code_code, ''), [requiredCheck]);
+
   
 
 
   console.log('currentdocument.errorsAll',currentdocument.errorsAll)
   if (validatemode == 'save') {
     currentdocument.errorsAll = {
-      companyname: companyname_check,
-      status: status_check,
+      code_code: code_code_check,
+
     }
     validatemode == 'touch' 
   }
   if (validatemode == 'touch' && (touched != null || touched!=undefined)) {
     currentdocument.errorsAll = {
-      companyname: checkTouched(nvl(touched.companyname, false), companyname_check),
-      status: checkTouched(nvl(touched.status, false), status_check),
+      code_code: checkTouched(nvl(touched.code_code, false), code_code_check),
    
     }
   }
@@ -71,19 +64,19 @@ console.log('nvl(target1, )',runCheck(nvl(companyname, ''), [requiredCheck]))
   return currentdocument;
 }
 
-const timeframeoptions = [{ 'key': 'Hold', 'value': 'Hold' },
-{ 'key': 'Blacklist', 'value': 'Blacklist' },
-{ 'key': 'Review', 'value': 'Review' }
+const timeframeoptions = [{ 'key': 'test1', 'value': 'test1' },
+{ 'key': 'test2', 'value': 'test2' },
+{ 'key': 'test3', 'value': 'test3' },
+{ 'key': 'Stockstatus', 'value': 'Stockstatus' }
 ]
 export const RecommendationComponent = (props: any) => {
   const compinp: any = useRef(null);
   const doctype = doctypes.RECOMMENDATION;
-  const doctypetext = 'Companyname';
+  const doctypetext = 'Companycodes';
   const resetFocus = () => {
     setTimeout(() => compinp.current.focus(), 1000);
   };
   const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteGQL);
-  const [stocklist, setstocklist] = useState([]);
   const [z_id, setZ_id] = useState(new URLSearchParams(location.search).get("z_id"));
 
   useEffect(() => {
@@ -105,27 +98,15 @@ export const RecommendationComponent = (props: any) => {
       modifydocument(newDocument(doctype, doctypetext));
     }
   }, [z_id]);
-  const getStockcmp = () => {
-    setloaderDisplay(true); compinp.current.focus()
-    fetchStocks({},
-
-      (err: any, result: any): any => {
-        if (err == '') { console.log(result); props.addstocks(result); setloaderDisplay(false) }
-        else { console.log(err, result) }
-      })
-  }
+  
 
   const { action, yesaction, noaction, dailogtext, dailogtitle } = documentstatus;
-  if (stocklist && props ?.stocks && stocklist ?.length !== props ?.stocks ?.length) {
-    setstocklist(props.stocks.map((el: any) => { return { value: el.name, label: el.name } }));
-  }
+ 
 
 
 
-
-  const M_stocklist = useMemo(() => stocklist, [stocklist])
   if (redirect) {
-    let redirectpath = '/newcomplist'
+    let redirectpath = '/Companycodess'
     return <Redirect push to={redirectpath} />;
   } else
 
@@ -135,18 +116,18 @@ export const RecommendationComponent = (props: any) => {
 
     return (
       <>
-     <Loader display={loaderDisplay} />
+         <Loader display={loaderDisplay} />
         <div className="container_itss">
           <div className="grid_itss">
           <div className="row_itss">
-              <SearchSelectInput inpref={compinp} wd="3" label="" options={M_stocklist} name="companyname" currdoc={currentdocument1} section={'companyname'} modifydoc={modifydocument} refresh={getStockcmp} />
-              <DatePicker wd="3" label="Review Date" name="reviewdate" currdoc={currentdocument1} section={'reviewdate'} modifydoc={modifydocument} />
-              <SelectInput wd="3" label="Status" options={timeframeoptions} name="status" currdoc={currentdocument1} section={'status'} modifydoc={modifydocument} />
-              <div className={"col_itss-3"}></div>
+          <SelectInput  wd="6" label="Code Type" options={timeframeoptions} name="code_type" currdoc={currentdocument1} section={'code_type'} modifydoc={modifydocument} />
+
+          <FlatInput inpref={compinp} wd="6" label="Code" name="code_code" currdoc={currentdocument1} section={'code_code'} modifydoc={modifydocument} />
             </div>
             <div className="row_itss">
-      <M__Textarea  wd="12" label=""  name="comment" currdoc={currentdocument1} section={'comment'} modifydoc={modifydocument}/>      
-      
+<M__Textarea  wd="4" label="Description1"  name="code_desc" currdoc={currentdocument1} section={'code_desc'} modifydoc={modifydocument}/>      
+<M__Textarea  wd="4" label="Description2"  name="code_desc1" currdoc={currentdocument1} section={'code_desc1'} modifydoc={modifydocument}/>      
+<M__Textarea  wd="4" label="Description3"  name="code_desc2" currdoc={currentdocument1} section={'code_desc2'} modifydoc={modifydocument}/>            
             </div>
           </div>
       
@@ -179,15 +160,10 @@ export const RecommendationComponent = (props: any) => {
     }} onClick={() => setDocumentAction('save')}>Save</button>
 </div>
 
-
-
-
-<Companystatuslist/>
-          <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} />
+<Companycodeslist/>      <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} />
           <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext} />
         </div>
    
-      {/*  <AppbarBottom setAction={setDocumentAction} handleGoback={goBack} setfocus={resetFocus} />*/}
  
       </>
     )

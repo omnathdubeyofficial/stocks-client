@@ -43,9 +43,9 @@ export function SideBar1(props: any) {
       active: '',
     },
     {
-      name: 'Accounts',
+      name: 'Company Codes',
       component: '',
-      slug: '/Accounts',
+      slug: '/Companycodes',
       iconName: 'las la-user-circle',
       active: '',
     },
