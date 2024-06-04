@@ -61,7 +61,6 @@ function Dashboard(props: any) {
             <Route exact path="/newcomplist">
               <Companystatuslist {...props}/>
             </Route>
-            
             <Route exact path="/Companycodes">
               <Companycodes {...props}/>
             </Route>

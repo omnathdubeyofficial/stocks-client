@@ -197,9 +197,9 @@ const mergedDocument = { ...defaultDocumentValues, ...currentdocument };
           <div className="grid_itss">     
             <div className="row_itss">
             <FlatInput inpref={inpref} wd="4" label="Delimeter" name="delimeter" currdoc={mergedDocument} section={'delimeter'} modifydoc={modifydocument} />
+            <DatePicker wd="4" label="Date" name="newsdate" currdoc={mergedDocument} section={'newsdate'} modifydoc={modifydocument} />
 <FlatInput wd="4" label="Delimeter Count" name="delimetercount" currdoc={mergedDocument} section={'delimetercount'} modifydoc={modifydocument} />
             </div>
-            <DatePicker wd="3" label="Date" name="newsdate" currdoc={mergedDocument} section={'newsdate'} modifydoc={modifydocument} />
 
             <div className="row_itss">
 
@@ -208,13 +208,60 @@ const mergedDocument = { ...defaultDocumentValues, ...currentdocument };
       
         <div className="col_itss-3"></div>
       </div>
-          
+      <div style={{ display: 'flex', gap: '10px' }}>
+    <button style={{
+        padding: '10px 20px',
+        textTransform: 'uppercase',
+        color: '#fff', // White text
+        backgroundColor: '#007bff', // Blue background
+        border: 'none',
+        borderRadius: '5px',
+    }} onClick={() => goBack(true)}>Back</button>
+
+    <button style={{
+        padding: '10px 20px',
+        textTransform: 'uppercase',
+        color: '#fff', // White text
+        backgroundColor: '#28a745', // Green background
+        border: 'none',
+        borderRadius: '5px',
+    }} onClick={() => setDocumentAction('clear')}>Clear</button>
+
+    <button style={{
+        padding: '10px 20px',
+        textTransform: 'uppercase',
+        color: '#fff', // White text
+        backgroundColor: '#dc3545', // Red background
+        border: 'none',
+        borderRadius: '5px',
+    }} onClick={() => setDocumentAction('delete')}>Delete</button>
+
+    <button style={{
+        padding: '10px 20px',
+        textTransform: 'uppercase',
+        color: '#fff', // White text
+        backgroundColor: '#ffc107', // Yellow background
+        border: 'none',
+        borderRadius: '5px',
+    }} onClick={() => setDocumentAction('save')}>Save</button>
+
+    <button style={{
+        padding: '10px 20px',
+        textTransform: 'uppercase',
+        color: '#fff', // White text
+        backgroundColor: '#6c757d', // Gray background
+        border: 'none',
+        borderRadius: '5px',
+    }} onClick={() => setDocumentAction('save_new')}>Save +</button>
+</div>
+
 
           </div>
           <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} />
           <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext} />
         </div>
-        <AppbarBottom setAction={setDocumentAction} handleGoback={goBack} setfocus={resetFocus} />
+             {/*   <AppbarBottom setAction={setDocumentAction} handleGoback={goBack} setfocus={resetFocus} />*/}
+
       </>
   )
 }
